@@ -18,13 +18,39 @@ android {
     }
 
     buildTypes {
-        release {
+        /*release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }*/
+        getByName(BuildTypes.RELEASE) {
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            isMinifyEnabled = Build.Release.isMinifyEnabled
+            enableUnitTestCoverage = Build.Release.enableUnitTestCoverage
+            isDebuggable = Build.Release.isDebuggable
         }
+
+        getByName(BuildTypes.DEBUG) {
+            applicationIdSuffix = Build.Debug.applicationIdSuffix
+            versionNameSuffix = Build.Debug.versionNameSuffix
+            isMinifyEnabled = Build.Debug.isMinifyEnabled
+            enableUnitTestCoverage = Build.Debug.enableUnitTestCoverage
+            isDebuggable = Build.Debug.isDebuggable
+        }
+
+        create(BuildTypes.RELEASE_EXTERNAL_QA) {
+            applicationIdSuffix = Build.ReleaseExternalQa.applicationIdSuffix
+            versionNameSuffix = Build.ReleaseExternalQa.versionNameSuffix
+            isMinifyEnabled = Build.ReleaseExternalQa.isMinifyEnabled
+            enableUnitTestCoverage = Build.ReleaseExternalQa.enableUnitTestCoverage
+            isDebuggable = Build.ReleaseExternalQa.isDebuggable
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
